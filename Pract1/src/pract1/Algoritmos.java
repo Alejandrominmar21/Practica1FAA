@@ -52,7 +52,7 @@ public class Algoritmos {
         aux.sort(Comparator.comparingDouble(Punto::getX));
         
         double minDist = distancia(aux.get(0),aux.get(1));
-        Punto a= aux.get(0), b= aux.get(1);  //Borrar
+        //Punto a= aux.get(0), b= aux.get(1); 
         
         for(int i= 0; i<aux.size()-i;i++){
             for(int j= i+1; j<aux.size();j++){
@@ -64,9 +64,9 @@ public class Algoritmos {
                 double d= distancia(aux.get(i),aux.get(j));
                 if(d < minDist){
                     minDist = d; 
-                    a= aux.get(i);
-                    b= aux.get(j);
-                    puntosDistMin = new ParPuntos(a,b);
+                    //a= aux.get(i);
+                    //b= aux.get(j);
+                    puntosDistMin = new ParPuntos(aux.get(i), aux.get(j));
                 }
             }   
         }
