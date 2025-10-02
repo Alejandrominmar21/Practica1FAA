@@ -5,6 +5,7 @@
 package pract1;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Algoritmos {
                 double dist = distancia(puntos.get(i),puntos.get(j));
                 if(dist < distanciaMinima){
                     distanciaMinima=dist;
-                    puntosDistMin =new ParPuntos(puntos.get(0),puntos.get(1));
+                    puntosDistMin =new ParPuntos(puntos.get(i),puntos.get(j));
                 }
                 System.out.println("i: "+puntos.get(i).toString()+" j: "+puntos.get(j).toString()+ " distancia:" + dist );
                 
@@ -38,8 +39,41 @@ public class Algoritmos {
         }
         System.out.println("min: " + distanciaMinima + "Puntos: " + puntosDistMin);
 
-        return null;
+        return puntosDistMin;
 
     }
+    
+      public static ParPuntos EchaustivoPoda(ArrayList<Punto> puntos) {
+        if(puntos.size()<2){
+            return null;
+        }
+        ParPuntos puntosDistMin = new ParPuntos(puntos.get(0),puntos.get(1));
+        ArrayList<Punto> aux = new ArrayList<>(puntos);
+        aux.sort(Comparator.comparingDouble(Punto::getX));
+        
+        double minDist = distancia(aux.get(0),aux.get(1));
+        Punto a= aux.get(0), b= aux.get(1);  //Borrar
+        
+        for(int i= 0; i<aux.size()-i;i++){
+            for(int j= i+1; j<aux.size();j++){
+                double dx  = aux.get(j).getX() - aux.get(i).getX();
+                if(dx >= minDist){//poda por X
+                    break;
+                }
+                
+                double d= distancia(aux.get(i),aux.get(j));
+                if(d < minDist){
+                    minDist = d; 
+                    a= aux.get(i);
+                    b= aux.get(j);
+                    puntosDistMin = new ParPuntos(a,b);
+                }
+            }   
+        }
+        
+        
+        return puntosDistMin; 
+          
+      }
 
 }
